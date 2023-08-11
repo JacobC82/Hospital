@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: hospital_project
+    password: hospital_project
+    url: jdbc:mysql://localhost:3306/hospital_project
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+  
+  sql:
+    init:
+      mode: always
