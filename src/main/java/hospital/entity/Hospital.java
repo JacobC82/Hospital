@@ -1,5 +1,12 @@
 package hospital.entity;
 
-public class Hospital {
+import lombok.Data;
 
+@Entity
+@Data
+public class Hospital {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long hospitalId;
+	
 }
