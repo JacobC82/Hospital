@@ -23,13 +23,13 @@ import hospital.entity.Staff;
 public class Hospital {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long hospitalId;
-	private String hospitalName;
-	private String hospitalAddress;
-	private String hospitalCity;
-	private String hospitalState;
-	private String hospitalZip;
-	private String hospitalPhone;
+	public Long hospitalId;
+	public String hospitalName;
+	public String hospitalAddress;
+	public String hospitalCity;
+	public String hospitalState;
+	public String hospitalZip;
+	public String hospitalPhone;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn(name = "hospital_id"),
@@ -40,5 +40,6 @@ public class Hospital {
 	@ToString.Exclude   //changed from petStore to pet_store on line 42- hated that
 	@OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Staff> staffers = new HashSet<Staff>();
+
 
 }

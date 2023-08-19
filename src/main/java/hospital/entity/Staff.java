@@ -17,7 +17,7 @@ public class Staff {
 	private String staffJobTitle;
 	private String staffFirstName;
 	private String staffLastName;
-	private Long staffPhone;
+	private String staffPhone;
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

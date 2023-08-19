@@ -11,27 +11,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import hospital.controller.model.HospitalData;
+import hospital.service.HospitalService;
+import lombok.extern.slf4j.Slf4j;
 
 //import pet.store.controller.model.PetStoreCustomer;
 //import pet.store.controller.model.PetStoreData;
 //import pet.store.controller.model.PetStoreEmployee;
 //import pet.store.service.PetStoreService;
 
-public class HospitalController {
+@RestController
+@RequestMapping("/hospital")
+@Slf4j
+public class HospitalController{
+
+	@Autowired
+	private HospitalService hospitalService;	
 	
-//	@Autowired
-//	private PetStoreService petStoreService;	
-//	
-//	@PostMapping("pet_store")
-//	@ResponseStatus(code = HttpStatus.CREATED)
-//	public PetStoreData insertPetStoreData(@RequestBody PetStoreData petStoreData) {
-//		
-//		log.info("Creating pet store data {}", petStoreData);
-//		
-//		return petStoreService.savePetStoreData(petStoreData);
-//		
-//	}
+	@PostMapping("hospital")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public HospitalData insertHospitalData(@RequestBody HospitalData hospitalData) {
+		
+		log.info("Creating hospital data {}", hospitalData);
+		
+		return hospitalService.saveHospitalData(hospitalData);
+		
+	}
 //	
 //	@PutMapping("/pet_store/{petStoreId}")
 //	public PetStoreData updatePetStore(@PathVariable Long petStoreId,
