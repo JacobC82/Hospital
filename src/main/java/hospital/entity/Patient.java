@@ -20,17 +20,12 @@ public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long patientId;
-	
 	private String patientFirstName;
-	
 	private String patientLastName;
-	
 	private String patientPhone;
-	
-	
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@ManyToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
+	@ManyToMany(mappedBy = "patients", cascade = CascadeType.PERSIST)
 	private Set<Hospital> hospital = new HashSet<>();
 }

@@ -32,12 +32,13 @@ public class Hospital {
 	public String hospitalPhone;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn(name = "hospital_id"),
+	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn
+	(name = "hospital_id"),
 	inverseJoinColumns = @JoinColumn(name = "patient_id"))
 	private Set<Patient> patients = new HashSet<Patient>();
 
 	@EqualsAndHashCode.Exclude
-	@ToString.Exclude   //changed from petStore to pet_store on line 42- hated that
+	@ToString.Exclude  
 	@OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Staff> staffers = new HashSet<Staff>();
 
