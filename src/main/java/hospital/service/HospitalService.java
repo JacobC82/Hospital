@@ -8,6 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import hospital.controller.model.HospitalData;
+import hospital.controller.model.HospitalPatient;
+import hospital.controller.model.HospitalStaff;
 import hospital.dao.HospitalDao;
 import hospital.dao.PatientDao;
 import hospital.dao.StaffDao;
@@ -62,6 +64,16 @@ public class HospitalService {
 		return hospitalDao.findById(hospitalId).orElseThrow(()
 				-> new NoSuchElementException("Hospital with ID = " 
 						+ hospitalId + " is not a valid ID number."));
+	}
+
+	public HospitalPatient savePatient(Long hospitalId, HospitalPatient hospitalPatient) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public HospitalStaff saveStaff(Long hospitalId, HospitalStaff hospitalStaff) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

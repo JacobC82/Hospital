@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import hospital.controller.model.HospitalData;
+import hospital.controller.model.HospitalPatient;
+import hospital.controller.model.HospitalStaff;
 import hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,25 +55,25 @@ public class HospitalController{
 //		return petStoreService.savePetStoreData(petStoreData);
 //		
 //	}
-//	@PostMapping("/{petStoreId}/employee")
-//	@ResponseStatus(code = HttpStatus.CREATED) //PetStoreEmployee employeeId changed to what it is now (petStoreEmoloyee)
-//	public PetStoreEmployee addEmployee(@PathVariable Long petStoreId, @RequestBody PetStoreEmployee petStoreEmployee) {
-//		
-//		
-//		log.info("Adding employee {} to pet store ={}" , petStoreEmployee, petStoreId );
-//		
-//		return petStoreService.saveEmployee(petStoreId, petStoreEmployee);
-//	}
-//
-//	@PostMapping("/{petStoreId}/customer")
-//	@ResponseStatus(code = HttpStatus.CREATED) 
-//	public PetStoreCustomer addCustomer(@PathVariable Long petStoreId, @RequestBody PetStoreCustomer petStoreCustomer) {
-//	
-//	
-//	log.info("Adding customer {} to pet store ={}", petStoreCustomer, petStoreId);
-//	
-//	return petStoreService.saveCustomer(petStoreId, petStoreCustomer);
-//	}
+	@PostMapping("/{hospitalId}/employee")
+	@ResponseStatus(code = HttpStatus.CREATED) //PetStoreEmployee employeeId changed to what it is now (petStoreEmoloyee)
+	public HospitalStaff addStaff(@PathVariable Long hospitalId, @RequestBody HospitalStaff hospitalStaff) {
+		
+		
+		log.info("Adding staff member {} to hospital ={}" , hospitalStaff, hospitalId );
+		
+		return hospitalService.saveStaff(hospitalId, hospitalStaff);
+	}
+
+	@PostMapping("/{hospitalId}/patient")
+	@ResponseStatus(code = HttpStatus.CREATED) 
+	public HospitalPatient addPatient(@PathVariable Long hospitalId, @RequestBody HospitalPatient hospitalPatient) {
+	
+	
+	log.info("Adding patient {} to hospital ={}", hospitalPatient, hospitalId);
+	
+	return hospitalService.savePatient(hospitalId, hospitalPatient);
+	}
 //	
 //	
 //	@GetMapping
