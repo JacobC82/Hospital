@@ -1,10 +1,12 @@
 package hospital.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +19,9 @@ import hospital.dao.StaffDao;
 import hospital.entity.Hospital;
 import hospital.entity.Patient;
 import hospital.entity.Staff;
-import pet.store.controller.model.PetStoreCustomer;
-import pet.store.entity.Customer;
-import pet.store.entity.PetStore;
 
 @Service
 public class HospitalService {
-
 	@Autowired
 	private HospitalDao hospitalDao;
 	@Autowired
@@ -39,7 +37,6 @@ public class HospitalService {
 		Hospital hospitalDAO = hospitalDao.save(hospital);
 		
 		return new HospitalData(hospitalDAO);
-		
 	}
 
 	private void copyHospitalFields(Hospital hospital, HospitalData hospitalData) {
@@ -60,9 +57,7 @@ public class HospitalService {
 		}
 		else {
 			hospital = findHospitalById(hospitalId);
-				
 		}
-		
 		return hospital;
 	}
 
@@ -74,15 +69,12 @@ public class HospitalService {
 
 	public HospitalPatient savePatient(Long hospitalId, HospitalPatient hospitalPatient) {
 		Hospital hospital = findHospitalById(hospitalId);
-		
 		Long patientId = hospitalPatient.getPatientId();
-
 		Patient patient = findOrCreatePatient(patientId, hospitalId);
 		
 		copyPatientFields(patient, hospitalPatient);
 		
 		patient.getHospital().add(hospital);
-		
 		hospital.getPatients().add(patient);
 		
 		Patient dbPatient = patientDao.save(patient);
@@ -102,7 +94,6 @@ public class HospitalService {
 			System.out.println("no patient found!");
 			return new Patient();
 		}
-		
 		return findCustomerById(hospitalId, patientId);
 	}
 
@@ -146,11 +137,8 @@ public class HospitalService {
 
 	private Staff findOrCreateStaff(Long hospitalId, Long staffId) {
 		if(Objects.isNull(staffId)) {
-
 			return new Staff();
-			
 			}
-			
 			return findStaffById(hospitalId, staffId);
 	}
 
@@ -165,4 +153,44 @@ public class HospitalService {
 		}
 	}
 
+	@Transactional(readOnly = true)
+	public List<HospitalData> retrieveAllHospitals() {
+		List<Hospital> hospitals = hospitalDao.findAll();
+		List<HospitalData> result = new LinkedList<>();
+		
+		for(Hospital hospital : hospitals) {
+			HospitalData hospitalData = new HospitalData(hospital);
+				hospitalData.getHospitalStaffers().clear();
+				hospitalData.getHospitalPatients().clear();		
+				result.add(hospitalData);
+		}
+		return result;
+	}
+	
+	@Transactional
+	public HospitalData retrieveHospitalById(Long hospitalId) {
+		Optional<Hospital> optHosptial =  hospitalDao.findById(hospitalId);
+		Hospital hospital = optHosptial.get();
+		return new HospitalData(hospital);
+	}
+
+	private Patient findPatientById (Long patientId) {
+		return patientDao.findById(patientId).orElseThrow(()
+				-> new NoSuchElementException("Pet store with ID = " 
+						+ patientId + " is not a valid ID number."));
+	}
+	
+	@Transactional
+	public HospitalPatient retrievePatientById(Long patientId) {
+		Optional<Patient> optPatient =  patientDao.findById(patientId);
+		Patient patient = optPatient.get();
+		return new HospitalPatient(patient);
+	}
+	
+	@Transactional (readOnly = false)
+	public void deletePatientById(Long patientId) {
+		Patient patient = findPatientById(patientId);
+		patientDao.delete(patient);
+	}
+	
 }

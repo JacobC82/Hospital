@@ -21,16 +21,10 @@ import hospital.controller.model.HospitalStaff;
 import hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 
-//import pet.store.controller.model.PetStoreCustomer;
-//import pet.store.controller.model.PetStoreData;
-//import pet.store.controller.model.PetStoreEmployee;
-//import pet.store.service.PetStoreService;
-
 @RestController
 @RequestMapping("/hospital")
 @Slf4j
 public class HospitalController{
-
 	@Autowired
 	private HospitalService hospitalService;	
 	
@@ -43,22 +37,20 @@ public class HospitalController{
 		return hospitalService.saveHospitalData(hospitalData);
 		
 	}
-//	
-//	@PutMapping("/pet_store/{petStoreId}")
-//	public PetStoreData updatePetStore(@PathVariable Long petStoreId,
-//									@RequestBody PetStoreData petStoreData) {
-//		
-//		petStoreData.setPetStoreId(petStoreId);
-//		
-//		log.info("Updating Pet Store {}", petStoreData);
-//		
-//		return petStoreService.savePetStoreData(petStoreData);
-//		
-//	}
+	
+	@PutMapping("/pet_store/{petStoreId}")
+	public HospitalData updateHospital(@PathVariable Long hospitalId, @RequestBody HospitalData hospitalData) {
+		
+		hospitalData.setHospitalId(hospitalId);
+		
+		log.info("Updating Hospital {}", hospitalData);
+		
+		return hospitalService.saveHospitalData(hospitalData);
+	}
+
 	@PostMapping("/{hospitalId}/employee")
 	@ResponseStatus(code = HttpStatus.CREATED) //PetStoreEmployee employeeId changed to what it is now (petStoreEmoloyee)
 	public HospitalStaff addStaff(@PathVariable Long hospitalId, @RequestBody HospitalStaff hospitalStaff) {
-		
 		
 		log.info("Adding staff member {} to hospital ={}" , hospitalStaff, hospitalId );
 		
@@ -69,30 +61,29 @@ public class HospitalController{
 	@ResponseStatus(code = HttpStatus.CREATED) 
 	public HospitalPatient addPatient(@PathVariable Long hospitalId, @RequestBody HospitalPatient hospitalPatient) {
 	
-	
 	log.info("Adding patient {} to hospital ={}", hospitalPatient, hospitalId);
 	
 	return hospitalService.savePatient(hospitalId, hospitalPatient);
 	}
-//	
-//	
-//	@GetMapping
-//	public List<PetStoreData> listAllPetStores (){
-//		return petStoreService.retrieveAllPetStores();
-//	}
-//	
-//	@GetMapping("/{petStoreId}")
-//	public PetStoreData listPetStoreById(@PathVariable Long petStoreId){
-//		return petStoreService.retrievePetStoreByID(petStoreId);
-//	}
-//	
-//	@DeleteMapping("/{petStoreId}")
-//	public Map<String, String> deletePetStoreById(@PathVariable Long petStoreId){
-//
-//		log.info("Deleting pet store with ID= {}", petStoreId);
-//		
-//		petStoreService.deletePetStoreById(petStoreId);
-//		
-//		return Map.of("message", "Deletion of pet store " + petStoreId + " is successful.");
-//	}
+	
+	
+	@GetMapping
+	public List<HospitalData> listAllHospitals (){
+		return hospitalService.retrieveAllHospitals();
+	}
+	
+	@GetMapping("/{hospitalId}")
+	public HospitalData listHospitalById(@PathVariable Long hospitalId){
+		return hospitalService.retrieveHospitalById(hospitalId);
+	}
+	
+	@DeleteMapping("/{patientId}")
+	public Map<String, String> deletePatient(@PathVariable Long patientId){
+
+		log.info("Deleting patient with ID= {}", patientId);
+		
+		hospitalService.deletePatientById(patientId);
+		
+		return Map.of("message", "Deletion of patient " + patientId + " is successful.");
+	}
 }
