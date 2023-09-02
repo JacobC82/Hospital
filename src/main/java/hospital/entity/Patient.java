@@ -23,6 +23,8 @@ public class Patient {
 	private String patientFirstName;
 	private String patientLastName;
 	private String patientPhone;
+	private String complaint;
+	private String diagnosis;
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

@@ -8,8 +8,6 @@ import hospital.entity.Patient;
 import hospital.entity.Staff;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import pet.store.controller.model.PetStoreCustomer;
-//import pet.store.controller.model.PetStoreEmployee;
 
 
 @Data
@@ -46,5 +44,9 @@ public class HospitalData {
 			HospitalStaff hospitalStaff = new HospitalStaff(staff);
 			hospitalStaffers.add(hospitalStaff);
 		}
+	}
+
+
+	public HospitalData(Patient patient) {
 	}
 }

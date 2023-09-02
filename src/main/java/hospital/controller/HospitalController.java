@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hospital.controller.model.HospitalData;
 import hospital.controller.model.HospitalPatient;
 import hospital.controller.model.HospitalStaff;
+import hospital.entity.Patient;
 import hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +39,7 @@ public class HospitalController{
 		
 	}
 	
-	@PutMapping("/pet_store/{petStoreId}")
+	@PutMapping("/hospital/{hospitalId}")
 	public HospitalData updateHospital(@PathVariable Long hospitalId, @RequestBody HospitalData hospitalData) {
 		
 		hospitalData.setHospitalId(hospitalId);
@@ -48,11 +49,11 @@ public class HospitalController{
 		return hospitalService.saveHospitalData(hospitalData);
 	}
 
-	@PostMapping("/{hospitalId}/employee")
-	@ResponseStatus(code = HttpStatus.CREATED) //PetStoreEmployee employeeId changed to what it is now (petStoreEmoloyee)
+	@PostMapping("/{hospitalId}/staff")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public HospitalStaff addStaff(@PathVariable Long hospitalId, @RequestBody HospitalStaff hospitalStaff) {
 		
-		log.info("Adding staff member {} to hospital ={}" , hospitalStaff, hospitalId );
+		log.info("Adding staff member {}" , hospitalStaff, hospitalId );
 		
 		return hospitalService.saveStaff(hospitalId, hospitalStaff);
 	}
@@ -72,9 +73,19 @@ public class HospitalController{
 		return hospitalService.retrieveAllHospitals();
 	}
 	
-	@GetMapping("/{hospitalId}")
+	@GetMapping("/hospital/{hospitalId}")
 	public HospitalData listHospitalById(@PathVariable Long hospitalId){
 		return hospitalService.retrieveHospitalById(hospitalId);
+	}
+	
+	@GetMapping("/patients")
+	public List<HospitalPatient> listAllPatients (){
+		return hospitalService.retrieveAllPatients();
+	}
+	
+	@GetMapping("/patient/{patientId}")
+	public HospitalPatient listPatientById(@PathVariable Long patientId){
+		return hospitalService.retrievePatientById(patientId);
 	}
 	
 	@DeleteMapping("/{patientId}")

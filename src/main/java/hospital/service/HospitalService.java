@@ -61,11 +61,7 @@ public class HospitalService {
 		return hospital;
 	}
 
-	private Hospital findHospitalById(Long hospitalId) {
-		return hospitalDao.findById(hospitalId).orElseThrow(()
-				-> new NoSuchElementException("Hospital with ID = " 
-						+ hospitalId + " is not a valid ID number."));
-	}
+
 
 	public HospitalPatient savePatient(Long hospitalId, HospitalPatient hospitalPatient) {
 		Hospital hospital = findHospitalById(hospitalId);
@@ -173,6 +169,13 @@ public class HospitalService {
 		Hospital hospital = optHosptial.get();
 		return new HospitalData(hospital);
 	}
+	
+	private Hospital findHospitalById(Long hospitalId) {
+		return hospitalDao.findById(hospitalId).orElseThrow(()
+				-> new NoSuchElementException("Hospital with ID = " 
+						+ hospitalId + " is not a valid ID number."));
+	}
+	
 
 	private Patient findPatientById (Long patientId) {
 		return patientDao.findById(patientId).orElseThrow(()
@@ -192,5 +195,21 @@ public class HospitalService {
 		Patient patient = findPatientById(patientId);
 		patientDao.delete(patient);
 	}
+	
+	@Transactional (readOnly = true)
+	public List<HospitalPatient> retrieveAllPatients() {
+		List<Patient> patients = patientDao.findAll();
+		
+		List<HospitalPatient> result = new LinkedList<>();
+		
+		for(Patient patient : patients) {
+			HospitalPatient HDP = new HospitalPatient(patient);
+			
+				result.add(HDP);
+		}
+		
+		return result;
+	}
+	
 	
 }

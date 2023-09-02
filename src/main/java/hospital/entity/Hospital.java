@@ -31,6 +31,8 @@ public class Hospital {
 	public String hospitalZip;
 	public String hospitalPhone;
 	
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude  
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn
 	(name = "hospital_id"),
