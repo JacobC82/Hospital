@@ -61,9 +61,8 @@ public class HospitalService {
 		return hospital;
 	}
 
-
-
-	public HospitalPatient savePatient(Long hospitalId, HospitalPatient hospitalPatient) {
+	public HospitalPatient savePatient(Long hospitalId,
+			HospitalPatient hospitalPatient) {
 		Hospital hospital = findHospitalById(hospitalId);
 		Long patientId = hospitalPatient.getPatientId();
 		Patient patient = findOrCreatePatient(patientId, hospitalId);
@@ -83,6 +82,8 @@ public class HospitalService {
 		patient.setPatientFirstName(hospitalPatient.getPatientFirstName());
 		patient.setPatientLastName(hospitalPatient.getPatientLastName());
 		patient.setPatientPhone(hospitalPatient.getPatientPhone());
+		patient.setComplaint(hospitalPatient.getComplaint());
+		patient.setDiagnosis(hospitalPatient.getDiagnosis());
 	}
 
 	private Patient findOrCreatePatient(Long patientId, Long hospitalId) {
@@ -90,11 +91,13 @@ public class HospitalService {
 			System.out.println("no patient found!");
 			return new Patient();
 		}
-		return findCustomerById(hospitalId, patientId);
+		return findPatientById(hospitalId, patientId);
 	}
 
-	private Patient findCustomerById(Long hospitalId, Long patientId) {
-		Patient patient = patientDao.findById(patientId).orElseThrow(() -> new NoSuchElementException("No patient with Id= " + patientId + " in pet store " + hospitalId));
+	private Patient findPatientById(Long hospitalId, Long patientId) {
+		Patient patient = patientDao.findById(patientId).orElseThrow(() -> new 
+				NoSuchElementException("No patient with Id= " + patientId +
+						" in hospital" + hospitalId));
 		
 		for(Hospital hospital : patient.getHospital()) {
 			if(hospital.getHospitalId()== hospitalId) {
@@ -179,7 +182,7 @@ public class HospitalService {
 
 	private Patient findPatientById (Long patientId) {
 		return patientDao.findById(patientId).orElseThrow(()
-				-> new NoSuchElementException("Pet store with ID = " 
+				-> new NoSuchElementException("Hospital with ID = " 
 						+ patientId + " is not a valid ID number."));
 	}
 	
@@ -199,7 +202,6 @@ public class HospitalService {
 	@Transactional (readOnly = true)
 	public List<HospitalPatient> retrieveAllPatients() {
 		List<Patient> patients = patientDao.findAll();
-		
 		List<HospitalPatient> result = new LinkedList<>();
 		
 		for(Patient patient : patients) {
@@ -207,9 +209,9 @@ public class HospitalService {
 			
 				result.add(HDP);
 		}
-		
 		return result;
 	}
+
 	
 	
 }

@@ -15,8 +15,6 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import hospital.entity.Patient;
-import hospital.entity.Staff;
 
 @Entity
 @Data
@@ -37,7 +35,7 @@ public class Hospital {
 	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn
 	(name = "hospital_id"),
 	inverseJoinColumns = @JoinColumn(name = "patient_id"))
-	private Set<Patient> patients = new HashSet<Patient>();
+	Set<Patient> patients = new HashSet<Patient>();
 
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude  

@@ -24,7 +24,8 @@ public class HospitalPatient {
 		patientFirstName = patient.getPatientFirstName();
 		patientLastName = patient.getPatientLastName();
 		patientPhone = patient.getPatientPhone();
-		
+		complaint = patient.getComplaint();
+		diagnosis = patient.getDiagnosis();
 		
 	}
 	

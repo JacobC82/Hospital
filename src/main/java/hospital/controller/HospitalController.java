@@ -48,6 +48,17 @@ public class HospitalController{
 		
 		return hospitalService.saveHospitalData(hospitalData);
 	}
+	//changed mapping on 9-5
+	@PutMapping("/{hospitalId}/{patientId}")
+	public HospitalPatient updatePatient(@PathVariable Long patientId,
+		@RequestBody HospitalPatient hospitalPatient) {
+		
+		hospitalPatient.setPatientId(patientId);
+		
+		log.info("Updating patients {}", hospitalPatient);
+		
+		return hospitalService.savePatient(patientId, hospitalPatient);
+	}
 
 	@PostMapping("/{hospitalId}/staff")
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -88,7 +99,7 @@ public class HospitalController{
 		return hospitalService.retrievePatientById(patientId);
 	}
 	
-	@DeleteMapping("/{patientId}")
+	@DeleteMapping("/{hospitalId}/{patientId}")
 	public Map<String, String> deletePatient(@PathVariable Long patientId){
 
 		log.info("Deleting patient with ID= {}", patientId);

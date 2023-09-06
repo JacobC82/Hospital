@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import hospital.entity.Hospital;
+//import hospital.entity.Hospital;
 
 @Entity
 @Data
@@ -29,5 +29,5 @@ public class Patient {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToMany(mappedBy = "patients", cascade = CascadeType.PERSIST)
-	private Set<Hospital> hospital = new HashSet<>();
+	Set<Hospital> hospital = new HashSet<>();
 }
