@@ -31,11 +31,14 @@ public class Hospital {
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude  
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn
-	(name = "hospital_id"),
-	inverseJoinColumns = @JoinColumn(name = "patient_id"))
+	@ManyToMany(mappedBy = "hospitals", cascade = CascadeType.PERSIST)
+//	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn
+//	(name = "hospital_id"),
+//	inverseJoinColumns = @JoinColumn(name = "patient_id"))
 	Set<Patient> patients = new HashSet<Patient>();
+	//Changes w Mike on 9-6
+	//deletes patient
+	//also cannot use post operation
 
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude  

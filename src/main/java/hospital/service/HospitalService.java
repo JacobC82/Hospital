@@ -69,7 +69,7 @@ public class HospitalService {
 		
 		copyPatientFields(patient, hospitalPatient);
 		
-		patient.getHospital().add(hospital);
+		patient.getHospitals().add(hospital);
 		hospital.getPatients().add(patient);
 		
 		Patient dbPatient = patientDao.save(patient);
@@ -99,7 +99,7 @@ public class HospitalService {
 				NoSuchElementException("No patient with Id= " + patientId +
 						" in hospital" + hospitalId));
 		
-		for(Hospital hospital : patient.getHospital()) {
+		for(Hospital hospital : patient.getHospitals()) {
 			if(hospital.getHospitalId()== hospitalId) {
 				return patient;
 			}

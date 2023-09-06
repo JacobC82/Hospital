@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +30,9 @@ public class Patient {
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@ManyToMany(mappedBy = "patients", cascade = CascadeType.PERSIST)
-	Set<Hospital> hospital = new HashSet<>();
+	@ManyToMany()
+	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn
+	(name = "hospital_id"),
+	inverseJoinColumns = @JoinColumn(name = "patient_id"))
+	Set<Hospital> hospitals = new HashSet<>();
 }

@@ -29,7 +29,7 @@ public class HospitalController{
 	@Autowired
 	private HospitalService hospitalService;	
 	
-	@PostMapping("hospital")
+	@PostMapping("/hospital")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public HospitalData insertHospitalData(@RequestBody HospitalData hospitalData) {
 		
