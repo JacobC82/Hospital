@@ -49,15 +49,15 @@ public class HospitalController{
 		return hospitalService.saveHospitalData(hospitalData);
 	}
 	//changed mapping on 9-5
-	@PutMapping("/{hospitalId}/{patientId}")
-	public HospitalPatient updatePatient(@PathVariable Long patientId,
+	@PutMapping("/{hospitalId}/{patientId}")//changed to Long "hospitalId" trying to get put to work(patientId)
+	public HospitalPatient updatePatient(@PathVariable Long patientId, @PathVariable Long hospitalId,
 		@RequestBody HospitalPatient hospitalPatient) {
 		
 		hospitalPatient.setPatientId(patientId);
 		
 		log.info("Updating patients {}", hospitalPatient);
 		
-		return hospitalService.savePatient(patientId, hospitalPatient);
+		return hospitalService.savePatient(hospitalId, hospitalPatient);
 	}
 
 	@PostMapping("/{hospitalId}/staff")
@@ -98,13 +98,13 @@ public class HospitalController{
 	public HospitalPatient listPatientById(@PathVariable Long patientId){
 		return hospitalService.retrievePatientById(patientId);
 	}
-	
+	//delete operation confused, changed order of path variable input
 	@DeleteMapping("/{hospitalId}/{patientId}")
-	public Map<String, String> deletePatient(@PathVariable Long patientId){
+	public Map<String, String> deletePatient(@PathVariable Long hospitalId,@PathVariable Long patientId){
 
 		log.info("Deleting patient with ID= {}", patientId);
 		
-		hospitalService.deletePatientById(patientId);
+		hospitalService.deletePatientById(hospitalId, patientId);
 		
 		return Map.of("message", "Deletion of patient " + patientId + " is successful.");
 	}

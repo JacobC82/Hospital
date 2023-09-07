@@ -32,7 +32,7 @@ public class Patient {
 	@ToString.Exclude
 	@ManyToMany()
 	@JoinTable(name = "hospital_patient", joinColumns = @JoinColumn
-	(name = "hospital_id"),
-	inverseJoinColumns = @JoinColumn(name = "patient_id"))
+	(name = "patient_id"),
+	inverseJoinColumns = @JoinColumn(name = "hotpital_id"))
 	Set<Hospital> hospitals = new HashSet<>();
 }
