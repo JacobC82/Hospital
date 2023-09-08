@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import hospital.entity.Hospital;
+//import hospital.entity.Hospital;
 
 @Entity
 @Data

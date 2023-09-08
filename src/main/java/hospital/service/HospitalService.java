@@ -85,6 +85,7 @@ public class HospitalService {
 		patient.setComplaint(hospitalPatient.getComplaint());
 		patient.setDiagnosis(hospitalPatient.getDiagnosis());
 	}
+	
 	private Patient findOrCreatePatient(Long patientId, Long hospitalId) {
 			if (patientId == null){
 			System.out.println("no patient found!");
@@ -105,22 +106,10 @@ public class HospitalService {
 		}throw new IllegalArgumentException("No such patient for hospital ID= " + hospitalId);
 	}	
 	
-//	private Staff findStaffById(Long hospitalId, Long staffId) {
-//		Staff staff =  staffDao.findById(staffId).orElseThrow(() -> new NoSuchElementException("Hospital with ID= "
-//				+ hospitalId + " does not have an employee with employee ID= " + staffId + "."));
-//		
-//		if(staffId == staff.getHospital().getHospitalId()) {
-//			return staff;
-//		}else {
-//			throw new IllegalArgumentException("No such staff member ID for a hospitil with ID= " + hospitalId);
-//		}
-	
 	@Transactional(readOnly = false)
 	public HospitalStaff saveStaff(Long hospitalId, HospitalStaff hospitalStaff) {
 		Hospital hospital = findHospitalById(hospitalId);
-		
 		Long staffId = hospitalStaff.getStaffId();
-		
 		Staff staff = findOrCreateStaff(hospitalId, staffId);
 		
 		copyStaffFields(staff, hospitalStaff);
@@ -128,7 +117,7 @@ public class HospitalService {
 		staff.setHospital(hospital);
 
 		hospital.getStaffers().add(staff);
-		
+
 		Staff dbStaff = staffDao.save(staff);
 		
 		return new HospitalStaff(dbStaff);
@@ -186,7 +175,6 @@ public class HospitalService {
 				-> new NoSuchElementException("Hospital with ID = " 
 						+ hospitalId + " is not a valid ID number."));
 	}
-	
 
 	private Patient findPatientById (Long patientId) {
 		return patientDao.findById(patientId).orElseThrow(()
@@ -200,14 +188,6 @@ public class HospitalService {
 		Patient patient = optPatient.get();
 		return new HospitalPatient(patient);
 	}
-//	original
-//	@Transactional (readOnly = false)
-//	public void deletePatientById(Long patientId, Long hospitalId) {
-//		Patient patient = findPatientById(patientId);
-//		patientDao.delete(patient);
-//	}
-	
-
 	
 		@Transactional (readOnly = false)
 	public void deletePatientById( Long hospitalId, Long patientId ) {
@@ -229,12 +209,8 @@ public class HospitalService {
 		
 		for(Patient patient : patients) {
 			HospitalPatient HDP = new HospitalPatient(patient);
-			
 				result.add(HDP);
 		}
 		return result;
-	}
-
-	
-	
+	}	
 }

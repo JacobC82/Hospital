@@ -1,8 +1,5 @@
 package hospital.controller.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import hospital.entity.Staff;
 import lombok.Data;
 import lombok.NoArgsConstructor;

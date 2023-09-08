@@ -1,8 +1,5 @@
 package hospital.controller.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import hospital.entity.Patient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +14,6 @@ public class HospitalPatient {
 	private String complaint;
 	private String diagnosis;
 	
-	//private Set<HospitalPatient> hospitalPatients = new HashSet<>();
-	
 	public HospitalPatient(Patient patient){
 		patientId = patient.getPatientId();
 		patientFirstName = patient.getPatientFirstName();
@@ -26,7 +21,5 @@ public class HospitalPatient {
 		patientPhone = patient.getPatientPhone();
 		complaint = patient.getComplaint();
 		diagnosis = patient.getDiagnosis();
-		
 	}
-	
 }

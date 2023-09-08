@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import hospital.controller.model.HospitalData;
 import hospital.controller.model.HospitalPatient;
 import hospital.controller.model.HospitalStaff;
-import hospital.entity.Patient;
 import hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,27 +31,23 @@ public class HospitalController{
 	@PostMapping("/hospital")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public HospitalData insertHospitalData(@RequestBody HospitalData hospitalData) {
-		
 		log.info("Creating hospital data {}", hospitalData);
 		
 		return hospitalService.saveHospitalData(hospitalData);
-		
 	}
 	
 	@PutMapping("/hospital/{hospitalId}")
 	public HospitalData updateHospital(@PathVariable Long hospitalId, @RequestBody HospitalData hospitalData) {
-		
 		hospitalData.setHospitalId(hospitalId);
 		
 		log.info("Updating Hospital {}", hospitalData);
 		
 		return hospitalService.saveHospitalData(hospitalData);
 	}
-	//changed mapping on 9-5
-	@PutMapping("/{hospitalId}/{patientId}")//changed to Long "hospitalId" trying to get put to work(patientId)
+
+	@PutMapping("/{hospitalId}/{patientId}")
 	public HospitalPatient updatePatient(@PathVariable Long patientId, @PathVariable Long hospitalId,
 		@RequestBody HospitalPatient hospitalPatient) {
-		
 		hospitalPatient.setPatientId(patientId);
 		
 		log.info("Updating patients {}", hospitalPatient);
@@ -63,7 +58,6 @@ public class HospitalController{
 	@PostMapping("/{hospitalId}/staff")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public HospitalStaff addStaff(@PathVariable Long hospitalId, @RequestBody HospitalStaff hospitalStaff) {
-		
 		log.info("Adding staff member {}" , hospitalStaff, hospitalId );
 		
 		return hospitalService.saveStaff(hospitalId, hospitalStaff);
@@ -72,12 +66,10 @@ public class HospitalController{
 	@PostMapping("/{hospitalId}/patient")
 	@ResponseStatus(code = HttpStatus.CREATED) 
 	public HospitalPatient addPatient(@PathVariable Long hospitalId, @RequestBody HospitalPatient hospitalPatient) {
-	
 	log.info("Adding patient {} to hospital ={}", hospitalPatient, hospitalId);
 	
 	return hospitalService.savePatient(hospitalId, hospitalPatient);
 	}
-	
 	
 	@GetMapping
 	public List<HospitalData> listAllHospitals (){
@@ -98,7 +90,7 @@ public class HospitalController{
 	public HospitalPatient listPatientById(@PathVariable Long patientId){
 		return hospitalService.retrievePatientById(patientId);
 	}
-	//delete operation confused, changed order of path variable input
+
 	@DeleteMapping("/{hospitalId}/{patientId}")
 	public Map<String, String> deletePatient(@PathVariable Long hospitalId,@PathVariable Long patientId){
 
