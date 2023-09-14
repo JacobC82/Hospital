@@ -184,8 +184,9 @@ public class HospitalService {
 	
 	@Transactional
 	public HospitalPatient retrievePatientById(Long patientId) {
-		Optional<Patient> optPatient =  patientDao.findById(patientId);
+		Optional<Patient> optPatient =  patientDao.findById(patientId); 
 		Patient patient = optPatient.get();
+
 		return new HospitalPatient(patient);
 	}
 	

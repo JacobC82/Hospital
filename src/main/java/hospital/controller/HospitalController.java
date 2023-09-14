@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hospital.controller.model.HospitalData;
 import hospital.controller.model.HospitalPatient;
 import hospital.controller.model.HospitalStaff;
+import hospital.entity.Patient;
 import hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -87,6 +88,7 @@ public class HospitalController{
 	}
 	
 	@GetMapping("/patient/{patientId}")
+	//from HosptialPatient to Patient
 	public HospitalPatient listPatientById(@PathVariable Long patientId){
 		return hospitalService.retrievePatientById(patientId);
 	}
